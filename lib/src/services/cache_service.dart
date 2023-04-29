@@ -48,6 +48,10 @@ class WikipediaSearchCache {
         .setString(_cachedResultsKey, json.encode(_searchCache._cachedResults));
   }
 
+  static List<String> get queryHistory {
+    return _searchCache._cachedQueries ?? [];
+  }
+
   List<String>? _cachedQueries;
   Map<dynamic, dynamic>? _cachedResults;
   static const int _maxCacheSize = 5;

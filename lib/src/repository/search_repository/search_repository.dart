@@ -12,6 +12,12 @@ class SearchQueryException implements Exception {
   final String errorMessage;
 }
 
+class FetchHistoryException implements Exception {
+  FetchHistoryException(this.errorMessage);
+
+  final String errorMessage;
+}
+
 class SearchRepository extends AbstractSearchRepository {
   SearchRepository(this._dioService);
 
@@ -58,6 +64,32 @@ class SearchRepository extends AbstractSearchRepository {
       throw SearchQueryException('Failed to fetch search results');
     } catch (e) {
       throw SearchQueryException('Failed to fetch search results');
+    }
+  }
+
+  @override
+  List<String> fetchQueryHistory({String? query}) {
+    try {
+      final List<String> history =
+          WikipediaSearchCache.queryHistory.reversed.toList();
+      if (query != null && query.isNotEmpty) {
+        return history
+            .where((keyword) => keyword.contains(query.trim().toLowerCase()))
+            .toList();
+      }
+      return history;
+    } on FetchHistoryException catch (e) {
+      throw FetchHistoryException(e.errorMessage);
+    } on DioError catch (e) {
+      if (e.type == DioErrorType.connectionTimeout) {
+        throw FetchHistoryException("No internet connection");
+      }
+      if (e.response == null) {
+        throw FetchHistoryException("No internet connection");
+      }
+      throw FetchHistoryException('Failed to fetch history');
+    } catch (e) {
+      throw FetchHistoryException('Failed to fetch history');
     }
   }
 }
