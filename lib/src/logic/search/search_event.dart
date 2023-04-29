@@ -11,3 +11,8 @@ class Query extends SearchEvent {
   const Query(this.searchQuery);
   final SearchQuery searchQuery;
 }
+
+class FetchHistory extends SearchEvent {
+  const FetchHistory(this.query);
+  final String? query;
+}

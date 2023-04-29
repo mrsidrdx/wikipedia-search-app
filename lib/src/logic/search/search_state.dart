@@ -9,6 +9,7 @@ abstract class SearchState extends Equatable {
 
 class SearchInitial extends SearchState {}
 
+// States for searching query
 class SearchLoading extends SearchState {}
 
 class SearchSuccess extends SearchState {
@@ -22,3 +23,16 @@ class SearchFailure extends SearchState {
 }
 
 class SearchNotFound extends SearchState {}
+
+// States for fetching history queries
+class FetchHistoryLoading extends SearchState {}
+
+class FetchHistorySuccess extends SearchState {
+  const FetchHistorySuccess(this.queries);
+  final List<String> queries;
+}
+
+class FetchHistoryFailure extends SearchState {
+  const FetchHistoryFailure(this.errorMessage);
+  final String errorMessage;
+}

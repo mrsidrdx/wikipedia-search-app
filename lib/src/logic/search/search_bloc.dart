@@ -12,6 +12,7 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this.searchRepository) : super(SearchInitial()) {
     on<Query>(_onQuery);
+    on<FetchHistory>(_onFetchHistory);
   }
 
   Future<void> _onQuery(Query event, Emitter<SearchState> emit) async {
@@ -28,6 +29,20 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(SearchFailure(e.errorMessage));
     } catch (e) {
       emit(SearchFailure(e.toString()));
+    }
+  }
+
+  Future<void> _onFetchHistory(
+      FetchHistory event, Emitter<SearchState> emit) async {
+    emit(FetchHistoryLoading());
+    try {
+      List<String> queries =
+          searchRepository.fetchQueryHistory(query: event.query);
+      emit(FetchHistorySuccess(queries));
+    } on FetchHistoryException catch (e) {
+      emit(FetchHistoryFailure(e.errorMessage));
+    } catch (e) {
+      emit(FetchHistoryFailure(e.toString()));
     }
   }
 
