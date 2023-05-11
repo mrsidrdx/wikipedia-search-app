@@ -78,16 +78,6 @@ class SearchRepository extends AbstractSearchRepository {
             .toList();
       }
       return history;
-    } on FetchHistoryException catch (e) {
-      throw FetchHistoryException(e.errorMessage);
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.connectionTimeout) {
-        throw FetchHistoryException("No internet connection");
-      }
-      if (e.response == null) {
-        throw FetchHistoryException("No internet connection");
-      }
-      throw FetchHistoryException('Failed to fetch history');
     } catch (e) {
       throw FetchHistoryException('Failed to fetch history');
     }
