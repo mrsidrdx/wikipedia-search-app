@@ -3,12 +3,10 @@ import 'package:wikipedia_search_app/src/models/search_feature/search_result.dar
 import 'package:wikipedia_search_app/src/presentation/search_view/widgets/search_result_tile.dart';
 
 class SearchResultList extends StatelessWidget {
-  const SearchResultList(
-      {Key? key, required this.searchResults, required this.isDarkMode})
+  const SearchResultList({Key? key, required this.searchResults})
       : super(key: key);
 
   final SearchResult searchResults;
-  final bool isDarkMode;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class SearchResultList extends StatelessWidget {
         itemCount: searchResults.results.length,
         itemBuilder: (BuildContext context, int index) {
           final page = searchResults.results[index];
-          return SearchResultTile(page: page, isDarkMode: isDarkMode);
+          return SearchResultTile(page: page);
         },
       ),
     );

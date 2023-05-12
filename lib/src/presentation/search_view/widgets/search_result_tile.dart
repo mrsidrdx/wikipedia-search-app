@@ -3,15 +3,14 @@ import 'package:wikipedia_search_app/src/commons/utils.dart';
 import 'package:wikipedia_search_app/src/models/search_feature/search_page.dart';
 
 class SearchResultTile extends StatelessWidget {
-  const SearchResultTile(
-      {Key? key, required this.page, required this.isDarkMode})
-      : super(key: key);
+  const SearchResultTile({Key? key, required this.page}) : super(key: key);
 
   final SearchPage page;
-  final bool isDarkMode;
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
       child: InkWell(

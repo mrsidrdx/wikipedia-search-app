@@ -73,13 +73,12 @@ class _SearchResultListViewState extends State<SearchResultListView> {
               },
               builder: (context, state) {
                 if (state is SearchLoading) {
-                  return SearchLoadingShimmerView(isDarkMode: isDarkMode);
+                  return const SearchLoadingShimmerView();
                 } else if (state is SearchNotFound) {
                   return const Center(child: Text('No results found'));
                 }
                 return _searchResults != null
-                    ? SearchResultList(
-                        searchResults: _searchResults!, isDarkMode: isDarkMode)
+                    ? SearchResultList(searchResults: _searchResults!)
                     : const SizedBox.shrink();
               },
             ),

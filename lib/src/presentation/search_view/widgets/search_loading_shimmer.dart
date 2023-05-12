@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SearchLoadingShimmerView extends StatelessWidget {
-  const SearchLoadingShimmerView({Key? key, required this.isDarkMode})
-      : super(key: key);
-
-  final bool isDarkMode;
+  const SearchLoadingShimmerView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
     final baseColor = isDarkMode ? Colors.grey[800]! : Colors.grey[300]!;
     final highlightColor = isDarkMode ? Colors.grey[600]! : Colors.grey[100]!;
     return SizedBox(
